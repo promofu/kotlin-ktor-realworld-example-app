@@ -26,6 +26,7 @@ buildscript {
 
 apply plugin: 'kotlin'
 apply plugin: 'application'
+apply plugin: 'maven-publish'
 mainClassName = "io.realworld.app.AppKt"
 
 repositories {
@@ -48,4 +49,24 @@ dependencies {
 
     testCompile "junit:junit:$junit_version"
     testCompile "com.mashape.unirest:unirest-java:$unirest_version"
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = "de.swnetworkdemo"
+            artifactId = "sample-project"
+            version = "0.9-SNAPSHOT"
+            from(components["java"])
+        }
+    }
+    repositories {
+        maven {
+            url = uri("https://maven.pkg.jetbrains.space/swnetworkdemo/p/jetbrains-space-demo/maven")
+            credentials {
+                username = "Jens.Gohrke"
+                password = "eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiIxUzNYZnUxdTRFUTEiLCJhdWQiOiJjaXJjbGV0LXdlYi11aSIsIm9yZ0RvbWFpbiI6InN3bmV0d29ya2RlbW8iLCJuYW1lIjoiSmVucy5Hb2hya2UiLCJpc3MiOiJodHRwczpcL1wvamV0YnJhaW5zLnNwYWNlIiwicGVybV90b2tlbiI6IjNkUm9iUjRCOXZ6bSIsInByaW5jaXBhbF90eXBlIjoiVVNFUiIsImlhdCI6MTYxNTIzMzEwN30.eKd7G5pEA4Qfesp1XHUZX_ij4j0tz-CdC_u8qcXhdqAo044yxUzxS5wReUxNpRHp_A08n_5ZICENrh_0uHWobQy6KY9NGDQD0HO_3_P5Pi0UCJ3vZWgLrAvCe-s4cyKPE2jm30va6m1fkpF_tKnqUF7Lpp-MXu5DSn0dnYtg5Ng"
+            }
+        }
+    }
 }
